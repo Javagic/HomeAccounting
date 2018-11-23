@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">HomeAccounting</string>
+    <string name="income">Income</string>
+    <string name="outgo">Outgo</string>
+    <string name="transaction">Transaction</string>
+    <string name="value">Value</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="save">save</string>
+    <string name="operations">Operations</string>
+    <string name="accounts">Accounts</string>
+    <string name="date_time_format">dd.MM HH:mm</string>
+    <string name="from_to">Transaction from $%1s to $%2s</string>
+
+
+</resources>
