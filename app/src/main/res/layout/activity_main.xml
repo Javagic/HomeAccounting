@@ -6,13 +6,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        tools:context=".main.MainActivity">
+        tools:context=".main.view.MainActivity">
+
+    <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:iconifiedByDefault="false"
+    />
+
     <TextView
             android:id="@+id/tvOperations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/operations"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchView"
             app:layout_constraintBottom_toTopOf="@+id/rvOperations"
             android:textSize="18sp"
 

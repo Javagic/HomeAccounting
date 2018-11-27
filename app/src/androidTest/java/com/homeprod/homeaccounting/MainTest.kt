@@ -1,26 +1,22 @@
 package com.homeprod.homeaccounting
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.PerformException
-import android.support.test.espresso.UiController
-import android.support.test.espresso.ViewAction
 import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.ViewMatchers.*
-import android.support.test.espresso.util.HumanReadables
-import android.support.test.espresso.util.TreeIterables
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
-import android.view.View
-import com.homeprod.homeaccounting.main.MainActivity
+import android.widget.EditText
+import com.homeprod.homeaccounting.main.view.CreateAccountActivity
+import com.homeprod.homeaccounting.main.view.CreateOperationActivity
+import com.homeprod.homeaccounting.main.view.MainActivity
 import org.hamcrest.CoreMatchers.containsString
-import org.hamcrest.Matcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.concurrent.TimeoutException
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -28,10 +24,18 @@ import java.util.concurrent.TimeoutException
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-open class ExampleInstrumentedTest {
+open class MainTest {
 
     @get:Rule
-    open val mainActivityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
+    open val mainActivityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java, false, false)
+
+    @get:Rule
+    open val operationTestRule =
+        ActivityTestRule<CreateOperationActivity>(CreateOperationActivity::class.java, false, false)
+
+    @get:Rule
+    open val accountTestRule = ActivityTestRule<CreateAccountActivity>(CreateAccountActivity::class.java, false, false)
+
 
     fun addIncomeOperation() {
         onView(withId(R.id.fabCreateOperation)).perform(click())
@@ -47,9 +51,7 @@ open class ExampleInstrumentedTest {
 
 
         onView(withId(R.id.spTo)).perform(click())
-//        onView(isRoot()).perform(waitId(R.id.etValue, 6000))
 
-//        onData(allOf(withId(android.R.layout.simple_spinner_dropdown_item), withText("Account1(0$)"))).perform(click())
         onView(withText(containsString("Account1"))).perform(click())
         onView(withId(R.id.spTo)).check(matches(withSpinnerText(containsString("Account1"))))
         onView(withId(R.id.btnSave)).perform(click())
@@ -62,8 +64,9 @@ open class ExampleInstrumentedTest {
         onView(withId(R.id.spTo)).check(matches(isDisplayed()))
         onView(withId(R.id.spFrom)).check(matches(isDisplayed()))
 
-        onView(withId(R.id.etValue)).perform(typeText("500"))
+        onView(withId(R.id.etValue)).perform(typeText("400"))
         onView(withId(R.id.etDescription)).perform(typeText("Description"))
+
 
         onView(withId(R.id.spFrom)).perform(click())
         onView(withText(containsString("Account1"))).perform(click())
@@ -90,14 +93,25 @@ open class ExampleInstrumentedTest {
 
     @Test
     fun useAppContext() {
+        mainActivityTestRule.launchActivity(null)
         createAccounts()
         addIncomeOperation()
         addOutgoOperation()
         addTransactionOperation()
+        search()
         deleteOperation()
         deleteAccount()
-//        onView(isRoot()).perform(waitId(R.id.etValue, 16000))
     }
+
+    fun search() {
+        onView(withId(R.id.searchView)).perform(click())
+        onView(withId(R.id.searchView)).perform(click())
+        onView(isAssignableFrom(EditText::class.java)).perform(typeText("Account1"))
+        onView(isAssignableFrom(EditText::class.java)).perform(replaceText("Description1"))
+        onView(isAssignableFrom(EditText::class.java)).perform(replaceText("400"))
+        onView(isAssignableFrom(EditText::class.java)).perform(replaceText(""), closeSoftKeyboard())
+    }
+
 
     fun deleteAccount() {
         onView(withId(R.id.rvAccounts)).perform(
@@ -124,37 +138,5 @@ open class ExampleInstrumentedTest {
         (1..2).forEach { addAccount(it) }
     }
 
-    fun waitId(viewId: Int, millis: Long): ViewAction {
-        return object : ViewAction {
-            override fun getConstraints(): Matcher<View> = isRoot()
 
-            override fun getDescription(): String = "wait for a specific view with id <$viewId> during $millis millis."
-
-
-            override fun perform(uiController: UiController, view: View) {
-                uiController.loopMainThreadUntilIdle()
-                val startTime = System.currentTimeMillis()
-                val endTime = startTime + millis
-                val viewMatcher = withId(viewId)
-
-                do {
-                    for (child in TreeIterables.breadthFirstViewTraversal(view)) {
-                        // found view with required ID
-                        if (viewMatcher.matches(child)) {
-                            return
-                        }
-                    }
-
-                    uiController.loopMainThreadForAtLeast(50)
-                } while (System.currentTimeMillis() < endTime)
-
-                // timeout happens
-                throw PerformException.Builder()
-                    .withActionDescription(this.description)
-                    .withViewDescription(HumanReadables.describe(view))
-                    .withCause(TimeoutException())
-                    .build()
-            }
-        }
-    }
 }

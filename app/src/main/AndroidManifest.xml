@@ -10,7 +10,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".main.MainActivity" android:launchMode="singleTop"
+        <activity android:name=".main.view.MainActivity" android:launchMode="singleTask"
         >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -18,12 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".main.CreateAccountActivity"
-                  android:launchMode="singleTop"
+        <activity android:name=".main.view.CreateAccountActivity"
+                  android:launchMode="singleTask"
                   android:windowSoftInputMode="adjustResize"
         />
-        <activity android:name=".main.CreateOperationActivity"
-                  android:launchMode="singleTop"
+        <activity android:name=".main.view.CreateOperationActivity"
+                  android:launchMode="singleTask"
                   android:windowSoftInputMode="adjustResize"
 
         />
