@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), AccountDialog.DeleteAccountListener {
             setOnClickListener {
                 if (AccountRepository.all().isNotEmpty())
                     startActivity(Intent(this@MainActivity, CreateOperationActivity::class.java))
+                else showToast(App.instance.getString(R.string.error_account))
             }
         }
     }

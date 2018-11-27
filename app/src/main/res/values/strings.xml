@@ -12,9 +12,12 @@
     <string name="operations">Operations</string>
     <string name="accounts">Accounts</string>
     <string name="date_time_format">dd.MM HH:mm</string>
-    <string name="from_to">Transaction from %1s to %2s</string>
+    <string name="name_from_to">Transaction from %1s to %2s</string>
+    <string name="name_from">Transaction from %1s</string>
+    <string name="name_to">Transaction to %1s</string>
     <string name="error_insufficient_funds">Unsufficient funds</string>
     <string name="error_incomplete_data">Incomplete data</string>
+    <string name="error_account">Create accounts at first</string>
     <string name="title_transaction">Choose account to transfer funds</string>
 
 

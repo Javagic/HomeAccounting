@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.homeprod.homeaccounting.R
-import com.homeprod.homeaccounting.main.data.Account
 import com.homeprod.homeaccounting.main.data.Operation
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,7 +28,7 @@ class OperationsAdapter : RecyclerView.Adapter<OperationsAdapter.OperationsHolde
 
     fun remove(operation: Operation) {
         data.remove(operation)
-        this.notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OperationsHolder =
@@ -56,7 +55,21 @@ class OperationsAdapter : RecyclerView.Adapter<OperationsAdapter.OperationsHolde
         fun bind(operation: Operation) {
             time.text = itemView.context.dateTimeFormat.format(Date(operation.time))
             value.text = operation.value.toString()
-            fromTo.text = itemView.context.getString(R.string.from_to, operation.from, operation.to)
+            fromTo.text = when (operation.type) {
+                Operation.OperationType.TRANSACTION -> itemView.context.getString(
+                    R.string.name_from_to,
+                    operation.from,
+                    operation.to
+                )
+                Operation.OperationType.INCOME -> itemView.context.getString(
+                    R.string.name_to,
+                    operation.to
+                )
+                Operation.OperationType.OUTGO -> itemView.context.getString(
+                    R.string.name_from,
+                    operation.from
+                )
+            }
         }
 
         val Context.dateTimeFormat: SimpleDateFormat
