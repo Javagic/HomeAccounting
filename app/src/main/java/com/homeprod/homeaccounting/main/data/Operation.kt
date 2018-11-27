@@ -5,15 +5,16 @@
  on 20.11.18 19:38
  */
 
-package com.homeprod.homeaccounting.main
+package com.homeprod.homeaccounting.main.data
 
 data class Operation(
-    val time: Long,
     val type: OperationType,
-    val value: Double,
+    val value: Int,
     val from: Account,
     val to: Account,
-    val description: String
+    val description: String,
+    val time: Long = System.currentTimeMillis()
+
 ) {
     enum class OperationType {
         INCOME,

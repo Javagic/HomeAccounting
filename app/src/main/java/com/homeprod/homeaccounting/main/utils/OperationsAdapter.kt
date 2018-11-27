@@ -5,7 +5,7 @@
  on 23.11.18 19:36
  */
 
-package com.homeprod.homeaccounting.main
+package com.homeprod.homeaccounting.main.utils
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -14,6 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.homeprod.homeaccounting.R
+import com.homeprod.homeaccounting.main.data.Account
+import com.homeprod.homeaccounting.main.data.Operation
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,6 +26,11 @@ class OperationsAdapter : RecyclerView.Adapter<OperationsAdapter.OperationsHolde
             this.data.addAll(value)
             this.notifyDataSetChanged()
         }
+
+    fun remove(operation: Operation) {
+        data.remove(operation)
+        this.notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OperationsHolder =
         OperationsHolder(

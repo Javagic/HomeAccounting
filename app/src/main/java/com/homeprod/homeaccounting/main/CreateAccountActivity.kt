@@ -10,6 +10,8 @@ package com.homeprod.homeaccounting.main
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.homeprod.homeaccounting.R
+import com.homeprod.homeaccounting.main.data.Account
+import com.homeprod.homeaccounting.main.repository.AccountRepository
 import kotlinx.android.synthetic.main.activity_create_account.*
 
 class CreateAccountActivity : AppCompatActivity() {

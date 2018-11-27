@@ -1,6 +1,5 @@
 package com.homeprod.homeaccounting
 
-import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.PerformException
 import android.support.test.espresso.UiController
@@ -14,11 +13,8 @@ import android.support.test.espresso.util.TreeIterables
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.view.View
-import com.homeprod.homeaccounting.main.Account
-import com.homeprod.homeaccounting.main.AccountRepository
 import com.homeprod.homeaccounting.main.MainActivity
 import org.hamcrest.Matcher
-import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,7 +29,6 @@ import java.util.concurrent.TimeoutException
 class ExampleInstrumentedTest {
     @get:Rule
     public open val mainActivityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
-
 
     @Test
     fun addOperation() {
@@ -61,30 +56,29 @@ class ExampleInstrumentedTest {
 
     @Test
     fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.homeprod.homeaccounting", appContext.packageName)
-        addAccount()
-        createAutoAccount()
+        createAccounts()
         addOperation()
         onView(isRoot()).perform(waitId(R.id.etValue, 5000))
     }
 
-    @Test
-    fun addAccount() {
+    fun addAccount(i: Int) {
         onView(withId(R.id.fabCreateAccount)).perform(click())
-        onView(withId(R.id.etName)).perform(typeText("Account1"))
-        onView(withId(R.id.etDescription)).perform(typeText("AccountDescription1"))
+        onView(withId(R.id.etName)).perform(typeText("Account$i"))
+        onView(withId(R.id.etDescription)).perform(typeText("AccountDescription$i"))
         onView(withId(R.id.btnSave)).perform(click())
         onView(withId(R.id.fabCreateAccount)).check(matches(isDisplayed()))
-
     }
 
-    private fun createAutoAccount() {
-        (1..10).forEach {
-            AccountRepository.createAccount(Account("Account$it", "AccountDescription$it", it))
-        }
+    private fun createAccounts() {
+        (1..5).forEach { addAccount(it) }
+    }
 
+    private fun createAutoOperations() {
+//        (1..10).forEach {
+//            OperationsRepository.createOperation(
+//                Operation(Type)
+//            )
+//        }
     }
 
     fun waitId(viewId: Int, millis: Long): ViewAction {

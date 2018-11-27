@@ -5,7 +5,7 @@
  on 23.11.18 20:13
  */
 
-package com.homeprod.homeaccounting.main
+package com.homeprod.homeaccounting.main.utils
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.homeprod.homeaccounting.R
+import com.homeprod.homeaccounting.main.data.Account
 import java.util.*
 
 class AccountAdapter : RecyclerView.Adapter<AccountAdapter.AccountHolder>() {
@@ -22,6 +23,11 @@ class AccountAdapter : RecyclerView.Adapter<AccountAdapter.AccountHolder>() {
             this.data.addAll(value)
             this.notifyDataSetChanged()
         }
+
+    fun remove(account: Account) {
+        data.remove(account)
+        this.notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountHolder =
         AccountHolder(

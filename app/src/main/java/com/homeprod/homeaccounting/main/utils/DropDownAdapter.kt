@@ -5,7 +5,7 @@
  on 23.11.18 19:00
  */
 
-package com.homeprod.homeaccounting.main
+package com.homeprod.homeaccounting.main.utils
 
 import android.content.Context
 import android.support.annotation.IdRes
