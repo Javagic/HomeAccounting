@@ -1,9 +1,3 @@
-/*
- Created by Ilya Reznik
- reznikid@altarix.ru
- skype be3bapuahta
- on 27.11.18 17:14
- */
 
 package com.homeprod.homeaccounting.main.utils
 
